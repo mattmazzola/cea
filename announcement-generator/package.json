@@ -1,0 +1,23 @@
+{
+  "name": "announcement-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node .",
+    "prestart": "npm run build"
+  },
+  "keywords": [],
+  "author": "Matt Mazzola <mattmazzola@live.com> (https://github.com/mattmazzola)",
+  "license": "MIT",
+  "dependencies": {
+    "@types/crawler": "^1.2.2",
+    "@types/dotenv-flow": "^3.2.0",
+    "@types/invariant": "^2.2.35",
+    "crawler": "^1.3.0",
+    "dotenv-flow": "^3.2.0",
+    "invariant": "^2.2.4",
+    "typescript": "^4.8.4"
+  }
+}
