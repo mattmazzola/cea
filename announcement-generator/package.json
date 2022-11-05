@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node .",
-    "prestart": "npm run build"
+    "prestart": "npm run build",
+    "watch": "node --watch build/index.js"
   },
   "keywords": [],
   "author": "Matt Mazzola <mattmazzola@live.com> (https://github.com/mattmazzola)",

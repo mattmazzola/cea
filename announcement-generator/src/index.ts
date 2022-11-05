@@ -4,17 +4,20 @@ import { fetchMatchData } from './dataFetcher'
 
 dotenv.config()
 
-const teamName = process.env.TEAM_NAME!
-invariant(typeof teamName === 'string', `Env TEAM_NAME must be string`)
+invariant(typeof process.env.TEAM_NAME === 'string', `Env TEAM_NAME must be string`)
+const teamName = process.env.TEAM_NAME
 
-const bearerToken = process.env.BEARER_TOKEN!
-invariant(typeof bearerToken === 'string', `Env BEARER_TOKEN must be string`)
+invariant(typeof process.env.BEARER_TOKEN === 'string', `Env BEARER_TOKEN must be string`)
+const bearerToken = process.env.BEARER_TOKEN
 
-const baseUrl = 'https://1ebv8yx4pa.execute-api.us-east-1.amazonaws.com/prod'
-const tournamentNamesOfInterest = ['SC2 Fall 2022 Fun Season', 'Starcraft 2 Corporate']
+invariant(typeof process.env.BASE_URL === 'string', `Env BASE_URL must be string`)
+const baseUrl = process.env.BASE_URL
+
+invariant(typeof process.env.TOURNAMENT_NAMES === 'string', `Env TOURNAMENT_NAMES must be string`)
+const tournamentNamesOfInterest = process.env.TOURNAMENT_NAMES.split(',').filter(s => s.length > 0)
 
 async function main() {
-    console.log(`Fetching match data...`)
+    console.log(`Fetching match data for team: ${teamName} in tournaments ${tournamentNamesOfInterest.join(', ')}`)
     const matchDatas = await fetchMatchData(
         baseUrl,
         tournamentNamesOfInterest,
