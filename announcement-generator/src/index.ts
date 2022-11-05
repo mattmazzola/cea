@@ -28,15 +28,15 @@ async function main() {
 
     const firstMatch = matchDatas.at(0)!
 
-    console.log(`${firstMatch.tournamentName} - ${firstMatch.weekName}`)
-    console.log(`Team 1: ${firstMatch.team1.name} (${firstMatch.team1.orgName})`)
-    console.log(`Team 2: ${firstMatch.team2.name} (${firstMatch.team2.orgName})`)
+    console.log(`${firstMatch.tournamentName} - ${firstMatch.weekName} - Saturday 11am PDT (UTC-7) - ${firstMatch.team2.name} (${firstMatch.team2.orgName})`)
     console.log(``)
 
+    const longestMapName = firstMatch.games.reduce((maxLength, game) => Math.max(maxLength, game.map.A.name.length), 0)
+
     for (const [gameIndex, game] of firstMatch.games.entries()) {
-        let gameLogMessage = `${game.map.mapNumber} (${game.map.matchType})\t- ${game.map.A.name} (${game.map.A.source})`
+        let gameLogMessage = `${game.map.mapNumber} (${game.map.matchType})\t- ${game.map.A.name.padEnd(longestMapName, ' ')} (${game.map.A.source})`
         if (gameIndex < firstMatch.games.length - 1) {
-            gameLogMessage += `\t- ${game.team1Players.map(user => `${user.name1}`).join(', ')} VS. ${game.team2Players.map(user => `${user.name1}`).join(', ')}`
+            gameLogMessage += `\t- ${game.team1Players.map(user => `${user.name1}`).join(', ')} vs. ${game.team2Players.map(user => `${user.name1}`).join(', ')}`
         }
 
         console.log(gameLogMessage)
