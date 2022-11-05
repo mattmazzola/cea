@@ -1,0 +1,50 @@
+body {
+  padding: 3em;
+  text-align: center;
+}
+
+input {
+  font-size: inherit;
+  border: 1px solid var(--color-white-soft);
+  background-color: var(--color-gray-darker);
+  padding: 0.5em;
+  border-radius: 3px;
+  color: var(--color-white);
+}
+
+h1 {
+  font-size: 3em;
+  color: var(--color-white);
+}
+
+section {
+  display: flex;
+  justify-content: center;
+}
+
+.inputs {
+  background-color: var(--color-gray-dark);
+  border: 2px solid var(--color-white-softer);
+  border-radius: 8px;
+  padding: 2em;
+  width: 800px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75em 1.5em;
+}
+
+.inputs h2 {
+  text-align: right;
+}
+
+.span {
+  grid-column: 1 / -1;
+}
+
+button {
+  font-size: 2em;
+  padding: 0.35em 1em;
+  border-radius: 10px;
+  margin-top: 0.5em;
+}
