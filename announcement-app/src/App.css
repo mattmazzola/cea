@@ -1,9 +1,17 @@
 body {
-  padding: 3em;
   text-align: center;
 }
 
-input {
+header {
+  background-color: var(--color-gray-dark);
+  padding: 2em 0;
+}
+
+main {
+  padding: 1em;
+}
+
+input, select {
   font-size: inherit;
   border: 1px solid var(--color-white-soft);
   background-color: var(--color-gray-darker);
@@ -12,12 +20,17 @@ input {
   color: var(--color-white);
 }
 
+select {
+  display: block;
+  min-width: 0;
+}
+
 h1 {
   font-size: 3em;
   color: var(--color-white);
 }
 
-section {
+section.form {
   display: flex;
   justify-content: center;
 }
@@ -43,8 +56,17 @@ section {
 }
 
 button {
+  cursor: pointer;
   font-size: 2em;
   padding: 0.35em 1em;
   border-radius: 10px;
   margin-top: 0.5em;
+}
+
+textarea {
+  display: block;
+  padding: 0.5em;
+  background-color: var(--color-gray-dark);
+  color: var(--color-white-soft);
+  font-family: var(--font-normal);
 }

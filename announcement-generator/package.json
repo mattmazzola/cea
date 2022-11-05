@@ -1,11 +1,11 @@
 {
-  "name": "announcement-generator",
+  "name": "@mattmazzola/cea-announcement-generator",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
+  "main": "build/dataFetcher.js",
   "scripts": {
     "build": "tsc",
-    "start": "node .",
+    "start": "node ./build/index.js",
     "prestart": "npm run build",
     "watch": "node --watch build/index.js"
   },

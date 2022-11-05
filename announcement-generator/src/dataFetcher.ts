@@ -1,4 +1,5 @@
 import { GameData, MatchData, PlayerData } from "./models"
+export { MatchData }
 
 const getMapsUrl = () => `https://cea-assets.s3.amazonaws.com/sc2/map-lineups/corporate.json`
 const getTournamentsUrl = (baseUrl: string) => `${baseUrl}/tournaments`
