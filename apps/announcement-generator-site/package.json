@@ -7,6 +7,7 @@
     "start": "remix-serve build"
   },
   "dependencies": {
+    "@mattmazzola/cea-announcement-generator": "file:../../announcement-generator",
     "@remix-run/node": "^1.7.5",
     "@remix-run/react": "^1.7.5",
     "@remix-run/serve": "^1.7.5",
