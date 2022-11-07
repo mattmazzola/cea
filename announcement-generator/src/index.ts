@@ -13,6 +13,9 @@ const bearerToken = process.env.BEARER_TOKEN
 invariant(typeof process.env.BASE_URL === 'string', `Env BASE_URL must be string`)
 const baseUrl = process.env.BASE_URL
 
+invariant(typeof process.env.MATCH_TIME === 'string', `Env MATCH_TIME must be string`)
+const matchTime = process.env.MATCH_TIME
+
 invariant(typeof process.env.TOURNAMENT_NAMES === 'string', `Env TOURNAMENT_NAMES must be string`)
 const tournamentNamesOfInterest = process.env.TOURNAMENT_NAMES.split(',').filter(s => s.length > 0)
 
@@ -27,6 +30,9 @@ async function main() {
 
     if (matchDatas.length > 1) {
         console.warn(`There is more than 1 match upcoming. This should not be possible.`)
+    }
+    if (matchDatas.length < 1) {
+        console.warn(`No tournaments were found with that search criteria.`)
     }
 
     const firstMatch = matchDatas.at(0)!

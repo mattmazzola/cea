@@ -1,5 +1,8 @@
 import { GameData, MatchData, PlayerData } from "./models"
-export { MatchData }
+
+export {
+    MatchData,
+}
 
 const getMapsUrl = () => `https://cea-assets.s3.amazonaws.com/sc2/map-lineups/corporate.json`
 const getTournamentsUrl = (baseUrl: string) => `${baseUrl}/tournaments`
@@ -15,7 +18,9 @@ export async function fetchMatchData(
 ): Promise<MatchData[]> {
     const tournamentsResponse = await fetch(getTournamentsUrl(baseUrl))
     const tournamentsJson = await tournamentsResponse.json()
-    const tournamentsOfInterest = tournamentsJson.data.filter(t => tournamentNamesOfInterest.some(tn => t.name.toLowerCase() === tn.toLocaleLowerCase()))
+    const tournamentsOfInterest = tournamentsJson.data
+        .filter(t => t.current === true)
+        .filter(t => tournamentNamesOfInterest.some(tId => t.name.toLowerCase() === tId.toLocaleLowerCase()))
     const matchDatas: MatchData[] = []
 
     const mapDataResponse = await fetch(getMapsUrl())
