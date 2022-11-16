@@ -9,12 +9,11 @@ export function getPlainText(
     s += `${matchData.tournamentName} - ${matchData.weekName} - ${timeString} - ${matchData.team2.name} (${matchData.team2.orgName})\n`
     s += `\n`
 
-    const longestMapName = matchData.games.reduce((maxLength, game) => Math.max(maxLength, game.map.A.name.length), 0)
-
-    for (const [gameIndex, game] of matchData.games.entries()) {
-        let gameLogMessage = `${game.map.mapNumber} (${game.map.matchType})\t- ${game.map.A.name.padEnd(longestMapName, ' ')} (${game.map.A.source})`
-        if (gameIndex < matchData.games.length - 1) {
-            gameLogMessage += `\t- ${game.team1Players.map(user => `${user.name1}`).join(', ')} vs. ${game.team2Players.map(user => `${user.name1}`).join(', ')}`
+    for (const game of matchData.games) {
+        let gameLogMessage = `${game.map.mapNumber} (${game.map.matchType}) - ${game.map.A.name} (${game.map.A.source})`
+        const isAce = /ace/i.test(game.map.mapNumber)
+        if (!isAce) {
+            gameLogMessage += ` - ${game.team1Players.map(user => `${user.name1}`).join(', ')} vs. ${game.team2Players.map(user => `${user.name1}`).join(', ')}`
         }
 
         s += `${gameLogMessage}\n`
