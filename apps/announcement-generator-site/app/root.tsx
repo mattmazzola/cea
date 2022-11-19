@@ -63,6 +63,7 @@ export const loader: LoaderFunction = async () => {
 type ActionData = {
   matchDatas: MatchData[]
   matchTime: string
+  teamName: string
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -90,6 +91,7 @@ export const action: ActionFunction = async ({ request }) => {
   return {
     matchDatas,
     matchTime,
+    teamName,
   }
 }
 
@@ -125,21 +127,24 @@ export default function App() {
           <h1>Match Data:</h1>
           {transition.state != "idle"
             ? <h2>Loading...</h2>
-            : null}
-          {(Array.isArray(actionData?.matchDatas) && actionData!.matchDatas.length) > 0
-            ? actionData?.matchDatas.map((matchData, matchDataIndex) => {
-            const matchDataPlainText = getPlainText(matchData, actionData?.matchTime)
+            : ((Array.isArray(actionData?.matchDatas) && actionData!.matchDatas.length) > 0)
+              ? actionData?.matchDatas.map((matchData, matchDataIndex) => {
+                const matchDataPlainText = getPlainText(
+                  matchData,
+                  actionData?.matchTime,
+                  actionData?.teamName,
+                )
 
-            return (
-              <section key={matchDataIndex} className="center">
-                <div>
-                  <h2>Plain Text</h2>
-                </div>
-                <textarea className="matchDataText" readOnly={true} value={matchDataPlainText} />
-              </section>
-            )
-          })
-          : "No matches found"}
+                return (
+                  <section key={matchDataIndex} className="center">
+                    <div>
+                      <h2>Plain Text</h2>
+                    </div>
+                    <textarea className="matchDataText" readOnly={true} value={matchDataPlainText} />
+                  </section>
+                )
+              })
+              : "No matches found"}
           <Outlet />
         </main>
         <ScrollRestoration />

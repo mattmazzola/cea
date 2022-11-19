@@ -3,10 +3,16 @@ import { MatchData } from "@mattmazzola/cea-announcement-generator"
 export function getPlainText(
     matchData: MatchData,
     timeString: string,
+    teamName: string,
 ): string {
+    let opponentTeam = matchData.team1
+    if (opponentTeam.name.toLowerCase() === teamName.toLowerCase()) {
+        opponentTeam = matchData.team2
+    }
+
     let s = ``
 
-    s += `${matchData.tournamentName} - ${matchData.weekName} - ${timeString} - ${matchData.team2.name} (${matchData.team2.orgName})\n`
+    s += `${matchData.tournamentName} - ${matchData.weekName} - ${timeString} - ${opponentTeam.name} (${opponentTeam.orgName})\n`
     s += `\n`
 
     for (const game of matchData.games) {
