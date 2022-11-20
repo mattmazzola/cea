@@ -4,9 +4,6 @@ FROM node:16-bullseye-slim as base
 # set for base and all layer that inherit from it
 ENV NODE_ENV production
 
-# Install openssl for Prisma
-RUN apt-get update && apt-get install -y openssl sqlite3
-
 # Install all node_modules, including dev dependencies
 FROM base as deps
 
@@ -32,6 +29,7 @@ WORKDIR /myapp
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 
 ADD . .
+RUN npm rebuild
 RUN npm run build
 
 # Finally, build the production image with minimal footprint
