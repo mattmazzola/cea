@@ -47,7 +47,7 @@ This application programmatically accesses CEA data and contrusts announcement m
 
 ## Setup Vars
 
-```
+```powershell
 $acrName = 'mattmazzolaacr'
 $repositoryName = 'cea'
 $imageName = 'apps-announcement'
@@ -57,13 +57,13 @@ $fullImageName = "${repositoryName}/${imageName}:${imageVersion}"
 
 ## Build Image
 
-```
+```powershell
 docker build -t $fullImageName .
 ```
 
 ## Run container Locally
 
-```
+```powershell
 docker run --rm -it `
     -p 8080:8080 `
     -e MAPS_URL="https://cea-assets.s3.amazonaws.com/sc2/map-lineups/corporate.json" `
@@ -75,7 +75,7 @@ docker run --rm -it `
 
 ## Log in to Azure
 
-```
+```azurecli
 az login
 az account set -s 375b0f6d-8ad5-412d-9e11-15d36d14dc63
 az account show --query name
@@ -83,33 +83,33 @@ az account show --query name
 
 ## Push image to ACR
 
-```
+```powershell
 az acr build -r $acrName --image $fullImageName .
 ```
 
 ## Get image URL
 
-```
-$acrUrl = $(az acr show -n $acrName --query loginServer)
+```powershell
+$acrUrl = $(az acr show -n $acrName --query "loginServer" -o tsv)
 $acrImageName = "$($acrUrl)/$($fullImageName)"
 ```
 
 ## ACR password
 
-```
+```powershell
 $acrUsername = $(az acr credential show -n $acrName --query "username" -o tsv)
 $acrPassword = $(az acr credential show -n $acrName --query "passwords[0].value" -o tsv)
 ```
 
 ## ACR Login
 
-```
+```powershell
 az acr login -n $acrName -u $acrUsername -p $acrPassword
 ```
 
 ## Run Image From ACR
 
-```
+```powershell
 docker run --rm -it `
     -p 8080:8080 `
     -e MAPS_URL="https://cea-assets.s3.amazonaws.com/sc2/map-lineups/corporate.json" `
@@ -120,3 +120,32 @@ docker run --rm -it `
 ```
 
 ## Create Container App From Image
+
+```powershell
+az config set extension.use_dynamic_install=yes_without_prompt
+
+$resourceGroupName = 'wov'
+$containerAppEnv = "$resourceGroupName-containerappsenv"
+$containerAppName = 'cea-apps-announcement-generator'
+$MAPS_URL = 'https://cea-assets.s3.amazonaws.com/sc2/map-lineups/corporate.json'
+$BASE_URL = 'https://1ebv8yx4pa.execute-api.us-east-1.amazonaws.com/prod'
+$TEAM_NAME = 'Macrohard Microsoft'
+$MATCH_TIME = 'Saturday 11am PDT (UTC-7)'
+
+az containerapp create `
+    -g $resourceGroupName `
+    -n $containerAppName `
+    --image $acrImageName `
+    --environment $containerAppEnv `
+    --ingress external `
+    --target-port 8080 `
+    --registry-server $acrUrl `
+    --registry-username $acrUsername `
+    --registry-password $acrPassword `
+    --env-vars MAPS_URL=$MAPS_URL `
+        BASE_URL=$BASE_URL `
+        TEAM_NAME=$TEAM_NAME `
+        MATCH_TIME=$MATCH_TIME `
+    --query properties.configuration.ingress.fqdn
+    -o tsv
+```

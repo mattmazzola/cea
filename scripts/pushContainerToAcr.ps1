@@ -9,7 +9,7 @@ $MATCH_TIME = 'Saturday 11am PDT (UTC-7)'
 
 $fullImageName = "${repositoryName}/${imageName}:${imageVersion}"
 
-$acrUrl = $(az acr show -n $acrName --query loginServer)
+$acrUrl = $(az acr show -n $acrName --query "loginServer" -o tsv)
 $acrUsername = $(az acr credential show -n $acrName --query "username" -o tsv)
 $acrPassword = $(az acr credential show -n $acrName --query "passwords[0].value" -o tsv)
 
@@ -31,6 +31,11 @@ $data = [ordered]@{
 
 echo "Container Vars"
 echo $data
+
+$MAPS_URL = 'https://cea-assets.s3.amazonaws.com/sc2/map-lineups/corporate.json'
+$BASE_URL = 'https://1ebv8yx4pa.execute-api.us-east-1.amazonaws.com/prod'
+$TEAM_NAME = 'Macrohard Microsoft'
+$MATCH_TIME = 'Saturday 11am PDT (UTC-7)'
 
 docker run --rm -it `
     -p 8080:8080 `
