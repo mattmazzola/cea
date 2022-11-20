@@ -1,7 +1,7 @@
 $acrName = 'mattmazzolaacr'
 $repositoryName = 'cea'
 $imageName = 'apps-announcement'
-$imageVersion = '0.1.0'
+$imageVersion = '0.1.2'
 $MAPS_URL = 'https://cea-assets.s3.amazonaws.com/sc2/map-lineups/corporate.json'
 $BASE_URL = 'https://1ebv8yx4pa.execute-api.us-east-1.amazonaws.com/prod'
 $TEAM_NAME = 'Macrohard Microsoft'
@@ -14,24 +14,23 @@ $acrUsername = $(az acr credential show -n $acrName --query "username" -o tsv)
 $acrPassword = $(az acr credential show -n $acrName --query "passwords[0].value" -o tsv)
 
 az acr login -n $acrName -u $acrUsername -p $acrPassword
-az acr build -r $acrName --image $fullImageName .
+
+Write-Output $fullImageName
+
+az acr build -r $acrName --image $fullImageName "$PSScriptRoot\..\apps\announcement-generator-site"
 
 $acrImageName = "$($acrUrl)/$($fullImageName)"
 
 $data = [ordered]@{
-    acrName        = $acrName;
-    repositoryName = $repositoryName;
-    imageName      = $imageName;
-    imageVersion   = $imageVersion;
-    MAPS_URL       = $MAPS_URL;
-    BASE_URL       = $BASE_URL;
-    TEAM_NAME      = $TEAM_NAME;
-    MATCH_TIME     = $MATCH_TIME;
+    acrImageName = $acrImageName;
+    MAPS_URL     = $MAPS_URL;
+    BASE_URL     = $BASE_URL;
+    TEAM_NAME    = $TEAM_NAME;
+    MATCH_TIME   = $MATCH_TIME;
 }
 
-Write-Output $data
-
-acr build -r $acrName --image $fullImageName "$PSScriptRoot\..\apps\announcement-generator-site"
+echo "Container Vars"
+echo $data
 
 docker run --rm -it `
     -p 8080:8080 `

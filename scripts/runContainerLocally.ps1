@@ -1,6 +1,6 @@
 $repositoryName = 'cea'
 $imageName = 'apps-announcement'
-$imageVersion = '0.1.0'
+$imageVersion = '0.1.2'
 $MAPS_URL = 'https://cea-assets.s3.amazonaws.com/sc2/map-lineups/corporate.json'
 $BASE_URL = 'https://1ebv8yx4pa.execute-api.us-east-1.amazonaws.com/prod'
 $TEAM_NAME = 'Macrohard Microsoft'
