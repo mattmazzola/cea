@@ -44,14 +44,16 @@ const InputsForm: React.FC<Props> = (props) => {
 }
 
 export function getFormData(formData: FormData) {
-    const tournamentIdsOfInterest = formData.getAll('inputTournaments') as string[]
     const formDataEntries = Object.fromEntries(formData)
+    const mapsUrl = formDataEntries.inputMapsUrl as string
+    const baseUrl = formDataEntries.inputBaseUrl as string
+    const tournamentIdsOfInterest = formData.getAll('inputTournaments') as string[]
     const teamName = formDataEntries.inputTeamName as string
     const matchTime = formDataEntries.inputMatchTime as string
     const userAuthToken = formDataEntries.inputUserAuthToken as string
-    const baseUrl = formDataEntries.inputBaseUrl as string
 
     return {
+        mapsUrl,
         baseUrl,
         tournamentIdsOfInterest,
         teamName,

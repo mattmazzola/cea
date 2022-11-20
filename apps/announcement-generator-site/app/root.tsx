@@ -1,5 +1,5 @@
-import { fetchMatchData } from "@mattmazzola/cea-announcement-generator"
-import { MatchData } from "@mattmazzola/cea-announcement-generator/build/models"
+import { fetchMatchData } from "~/services/matchdata/dataFetcher"
+import { MatchData } from "~/services/matchdata/models"
 import { ActionFunction, json, LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node"
 import {
   Links,
@@ -69,11 +69,8 @@ type ActionData = {
 export const action: ActionFunction = async ({ request }) => {
   const rawFormData = await request.formData()
   const inputData = getFormData(rawFormData)
-  console.log({
-    ...inputData,
-  })
-
   const {
+    mapsUrl,
     baseUrl,
     tournamentIdsOfInterest,
     teamName,
@@ -82,6 +79,7 @@ export const action: ActionFunction = async ({ request }) => {
   } = inputData
 
   const matchDatas = await fetchMatchData(
+    mapsUrl,
     baseUrl,
     tournamentIdsOfInterest,
     teamName,
