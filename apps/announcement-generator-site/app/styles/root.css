@@ -13,6 +13,7 @@ body {
 
   --color-gray-darker: hsl(210, 67%, 6%);
   --color-gray-dark: hsl(208, 40%, 16%);
+  --color-gray-lighter: hsl(209, 18%, 36%);
   --color-white-softer: hsla(0, 0%, 100%, 0.5);
   --color-white-soft: hsla(0, 0%, 100%, 0.774);
   --color-white: hsla(0, 0%, 100%, 0.986);
@@ -23,7 +24,7 @@ body {
   padding-bottom: 2em;
 
   font-family: var(--font-normal);
-  font-size: 22px;
+  font-size: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.35;
@@ -88,6 +89,7 @@ a:hover {
 input,
 textarea {
   font-size: inherit;
+  vertical-align: baseline;
 }
 
 body {
@@ -106,7 +108,7 @@ main {
 input,
 select {
   font-size: inherit;
-  border: 1px solid var(--color-white-soft);
+  border: 1px solid var(--color-gray-lighter);
   background-color: var(--color-gray-darker);
   padding: 0.5em;
   border-radius: 3px;
@@ -162,6 +164,8 @@ textarea {
   display: block;
   padding: 0.5em;
   background-color: var(--color-gray-dark);
+  border: 2px solid var(--color-white-softer);
+  border-radius: 5px;
   color: var(--color-white-soft);
   font-family: var(--font-normal);
 }

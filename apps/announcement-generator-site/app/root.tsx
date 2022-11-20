@@ -112,7 +112,7 @@ export default function App() {
       </head>
       <body>
         <header>
-          <h1>Corporate E-sports Association <br />SC2 Announcement Generator</h1>
+          <h1>CEA SC2 Announcement Generator</h1>
         </header>
         <main>
           <section className="center">
@@ -137,14 +137,11 @@ export default function App() {
 
                 return (
                   <section key={matchDataIndex} className="center">
-                    <div>
-                      <h2>Plain Text</h2>
-                    </div>
                     <textarea className="matchDataText" readOnly={true} value={matchDataPlainText} />
                   </section>
                 )
               })
-              : "No matches found"}
+              : <h2>No matches found</h2>}
           <Outlet />
         </main>
         <ScrollRestoration />

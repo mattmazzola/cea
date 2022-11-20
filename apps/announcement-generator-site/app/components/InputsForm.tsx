@@ -15,7 +15,7 @@ const InputsForm: React.FC<Props> = (props) => {
             <h2>Maps Url:</h2>
             <input type="text" name="inputMapsUrl" id="inputMapsUrl" defaultValue={props.defaultMapsUrl} required />
 
-            <h2>Base Url:</h2>
+            <h2>Base API Url:</h2>
             <input type="text" name="inputBaseUrl" id="inputBaseUrl" placeholder="Starcraft 2 Corporate" defaultValue={props.defaultBaseUrl} required />
 
             <h2>Current SC2 <br />Tournaments:</h2>
@@ -37,7 +37,7 @@ const InputsForm: React.FC<Props> = (props) => {
             <input type="text" name="inputUserAuthToken" id="inputUserAuthToken" placeholder="eyJhbGci..." required />
 
             <div className="span">
-                <button type="submit">Fetch Data</button>
+                <button type="submit">Fetch Match Data</button>
             </div>
         </Form>
     )
