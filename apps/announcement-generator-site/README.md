@@ -45,6 +45,18 @@ $acrUrl = $(az acr show -n $acrName --query loginServer)
 $acrImageName = "$($acrUrl)/$($fullImageName)"
 ```
 
+## ACR password
+
+```
+$acrUsername = $(az acr credential show -n $acrName --query "username" -o tsv)
+$acrPassword = $(az acr credential show -n $acrName --query "passwords[0].value" -o tsv)
+```
+
+## ACR Login
+
+```
+az acr login -n $acrName -u $acrUsername -p $acrPassword
+```
 
 ## Run Image From ACR
 
@@ -55,9 +67,7 @@ docker run --rm -it `
     -e BASE_URL="https://1ebv8yx4pa.execute-api.us-east-1.amazonaws.com/prod" `
     -e TEAM_NAME="Macrohard Microsoft" `
     -e MATCH_TIME="Saturday 11am PDT (UTC-7)" `
-    cea-announcement
+    $acrImageName
 ```
-
-
 
 ## Create Container App From Image
